@@ -1,0 +1,19 @@
+{
+  "backbone": "convnextv2_tiny",
+  "pretrained": true,
+  "image_size": 512,
+  "dropout": 0.1,
+  "num_classes": 240,
+  "batch_size": 32,
+  "steps_per_epoch": 2000,
+  "epochs": 10,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.01,
+  "warmup_fraction": 0.1,
+  "div_factor": 100.0,
+  "final_div_factor": 1000.0,
+  "workers": 16,
+  "seed": 42,
+  "precision": "16-mixed",
+  "sync_batchnorm": true
+}

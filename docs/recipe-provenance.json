@@ -1,0 +1,402 @@
+{
+  "source_repository": "https://github.com/i-pan/SKP",
+  "source_run": "c6043bd4",
+  "source_config": "boneage.cfg_female_channel_reg_cls_match_hist_cropped_uncropped",
+  "published_model": "https://huggingface.co/ianpan/bone-age",
+  "ensemble_folds": [
+    0,
+    1,
+    2
+  ],
+  "export_checkpoint": "last.ckpt",
+  "export_head": "linear.1",
+  "split_partitions": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "source_upload_script": "huggingface-models/uploads/upload_bone_age.py",
+  "saved_config_sha256": "5a9f0a96a1fa63a8047090493dde7fc3b35c3d39f3e8ef93b1d3594a013d610a",
+  "splits_sha256": "6c3277ae88a4725d2505707f2aaa88feb3c769960f069309e706ac7cf224b1e0",
+  "recorded_recipe": {
+    "backbone": "convnextv2_tiny",
+    "num_input_channels": 2,
+    "num_classes": [
+      1,
+      240
+    ],
+    "num_heads": 2,
+    "pool": "gem",
+    "pool_params": {
+      "p": 3
+    },
+    "dropout": 0.1,
+    "normalization": "-1_1",
+    "normalization_params": {
+      "min": 0,
+      "max": 255
+    },
+    "num_iterations_per_epoch": 2000,
+    "num_epochs": 10,
+    "batch_size": 32,
+    "val_batch_size": 64,
+    "optimizer": "AdamW",
+    "optimizer_params": {
+      "lr": 0.0003
+    },
+    "loss_params": {
+      "reg_weight": 1.0,
+      "cls_weight": 1.0
+    },
+    "scheduler_params": {
+      "pct_start": 0.1,
+      "div_factor": 100,
+      "final_div_factor": 1000,
+      "total_steps": 20000,
+      "max_lr": 0.0003
+    },
+    "image_height": 512,
+    "image_width": 512,
+    "match_hist_as_train_aug": true,
+    "num_workers": 16,
+    "n_train": 22458,
+    "n_val": 5614,
+    "fold": 2,
+    "trainer": {
+      "strategy": "ddp",
+      "precision": "16-mixed",
+      "devices": 2,
+      "accelerator": "cuda",
+      "num_nodes": 1,
+      "benchmark": true,
+      "sync_batchnorm": true,
+      "log_every_n_steps": 50,
+      "check_val_every_n_epoch": 1,
+      "limit_train_batches": null,
+      "limit_val_batches": null
+    }
+  },
+  "recorded_augmentations": {
+    "train_transforms": {
+      "type": "Compose",
+      "transforms": [
+        {
+          "type": "LongestMaxSize",
+          "p": 1.0,
+          "interpolation": 1,
+          "max_size": [
+            512
+          ]
+        },
+        {
+          "type": "PadIfNeeded",
+          "p": 1.0,
+          "padding": 0,
+          "fill": 0.0,
+          "fill_mask": 0.0,
+          "border_mode": 0,
+          "min_height": 512,
+          "min_width": 512,
+          "pad_height_divisor": null,
+          "pad_width_divisor": null,
+          "position": "center"
+        },
+        {
+          "type": "VerticalFlip",
+          "p": 0.5
+        },
+        {
+          "type": "HorizontalFlip",
+          "p": 0.5
+        },
+        {
+          "type": "SomeOf",
+          "transforms": [
+            {
+              "type": "ShiftScaleRotate",
+              "p": 1.0,
+              "interpolation": 1,
+              "fill": 0.0,
+              "fill_mask": 0.0,
+              "border_mode": 0,
+              "scale": {
+                "x": [
+                  1.0,
+                  1.0
+                ],
+                "y": [
+                  1.0,
+                  1.0
+                ]
+              },
+              "translate_percent": {
+                "x": [
+                  -0.2,
+                  0.2
+                ],
+                "y": [
+                  -0.2,
+                  0.2
+                ]
+              },
+              "translate_px": null,
+              "rotate": [
+                0.0,
+                0.0
+              ],
+              "fit_output": false,
+              "shear": {
+                "x": [
+                  0.0,
+                  0.0
+                ],
+                "y": [
+                  0.0,
+                  0.0
+                ]
+              },
+              "keep_ratio": false,
+              "rotate_method": "largest_box",
+              "balanced_scale": false,
+              "shift_limit_x": [
+                -0.2,
+                0.2
+              ],
+              "shift_limit_y": [
+                -0.2,
+                0.2
+              ],
+              "scale_limit": [
+                1.0,
+                1.0
+              ],
+              "rotate_limit": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "ShiftScaleRotate",
+              "p": 1.0,
+              "interpolation": 1,
+              "fill": 0.0,
+              "fill_mask": 0.0,
+              "border_mode": 0,
+              "scale": {
+                "x": [
+                  0.8,
+                  1.2
+                ],
+                "y": [
+                  0.8,
+                  1.2
+                ]
+              },
+              "translate_percent": {
+                "x": [
+                  -0.0,
+                  -0.0
+                ],
+                "y": [
+                  -0.0,
+                  -0.0
+                ]
+              },
+              "translate_px": null,
+              "rotate": [
+                0.0,
+                0.0
+              ],
+              "fit_output": false,
+              "shear": {
+                "x": [
+                  0.0,
+                  0.0
+                ],
+                "y": [
+                  0.0,
+                  0.0
+                ]
+              },
+              "keep_ratio": false,
+              "rotate_method": "largest_box",
+              "balanced_scale": false,
+              "shift_limit_x": [
+                -0.0,
+                -0.0
+              ],
+              "shift_limit_y": [
+                -0.0,
+                -0.0
+              ],
+              "scale_limit": [
+                0.8,
+                1.2
+              ],
+              "rotate_limit": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "ShiftScaleRotate",
+              "p": 1.0,
+              "interpolation": 1,
+              "fill": 0.0,
+              "fill_mask": 0.0,
+              "border_mode": 0,
+              "scale": {
+                "x": [
+                  1.0,
+                  1.0
+                ],
+                "y": [
+                  1.0,
+                  1.0
+                ]
+              },
+              "translate_percent": {
+                "x": [
+                  -0.0,
+                  -0.0
+                ],
+                "y": [
+                  -0.0,
+                  -0.0
+                ]
+              },
+              "translate_px": null,
+              "rotate": [
+                -30.0,
+                30.0
+              ],
+              "fit_output": false,
+              "shear": {
+                "x": [
+                  0.0,
+                  0.0
+                ],
+                "y": [
+                  0.0,
+                  0.0
+                ]
+              },
+              "keep_ratio": false,
+              "rotate_method": "largest_box",
+              "balanced_scale": false,
+              "shift_limit_x": [
+                -0.0,
+                -0.0
+              ],
+              "shift_limit_y": [
+                -0.0,
+                -0.0
+              ],
+              "scale_limit": [
+                1.0,
+                1.0
+              ],
+              "rotate_limit": [
+                -30,
+                30
+              ]
+            },
+            {
+              "type": "GaussianBlur",
+              "p": 1.0,
+              "blur_limit": [
+                3,
+                7
+              ],
+              "sigma_limit": [
+                0,
+                0
+              ]
+            },
+            {
+              "type": "GaussNoise",
+              "p": 1.0,
+              "std_range": [
+                0.2,
+                0.44
+              ],
+              "mean_range": [
+                0.0,
+                0.0
+              ],
+              "per_channel": true,
+              "noise_scale_factor": 1.0,
+              "var_limit": null
+            },
+            {
+              "type": "RandomBrightnessContrast",
+              "p": 1.0,
+              "brightness_limit": [
+                -0.0,
+                0.0
+              ],
+              "contrast_limit": [
+                -0.3,
+                0.3
+              ],
+              "brightness_by_max": true,
+              "ensure_safe_range": false
+            },
+            {
+              "type": "RandomBrightnessContrast",
+              "p": 1.0,
+              "brightness_limit": [
+                -0.3,
+                0.3
+              ],
+              "contrast_limit": [
+                -0.0,
+                0.0
+              ],
+              "brightness_by_max": true,
+              "ensure_safe_range": false
+            }
+          ],
+          "p": 0.9,
+          "n": 3,
+          "replace": false
+        }
+      ],
+      "p": 1.0
+    },
+    "val_transforms": {
+      "type": "Compose",
+      "transforms": [
+        {
+          "type": "LongestMaxSize",
+          "p": 1.0,
+          "interpolation": 1,
+          "max_size": [
+            512
+          ]
+        },
+        {
+          "type": "PadIfNeeded",
+          "p": 1.0,
+          "padding": 0,
+          "fill": 0.0,
+          "fill_mask": 0.0,
+          "border_mode": 0,
+          "min_height": 512,
+          "min_width": 512,
+          "pad_height_divisor": null,
+          "pad_width_divisor": null,
+          "position": "center"
+        }
+      ],
+      "p": 1.0
+    }
+  },
+  "preprocessing_assets": {
+    "reference_revision": "2ab81275b84e9f518f04584177221a1d8c1dc1a5",
+    "crop_revision": "43c044ed192d1f952af1ae34f57ab881edd5dd9d",
+    "reference_sha256": "fc243a431d60e5486449d2fa0b52627b633f80fe5512599c0f9ba8ca8ca578b6"
+  }
+}
