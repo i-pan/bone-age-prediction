@@ -1,0 +1,2 @@
+# Preserve the split manifest bytes used by the recorded SHA-256 hash.
+data/splits.csv -text whitespace=cr-at-eol
